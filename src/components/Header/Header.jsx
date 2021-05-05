@@ -31,9 +31,9 @@ const Header = () => {
             </li>
           </ul>
           <span className="navbar-text actions">
-            <a className="btn btn-primary login" href="#">
+            <Link className="btn btn-primary login" to="/login">
               Log In
-            </a>
+            </Link>
             <Link className="btn btn-success action-button" role="button" to="/signup">
               Sign Up
             </Link>
