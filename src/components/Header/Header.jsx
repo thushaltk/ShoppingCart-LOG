@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom";
+
 import "./Header.css";
 
 const Header = () => {
   return (
     <nav className="navbar navbar-light navbar-expand-md navigation-clean-button ">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           LOGShop
-        </a>
+        </Link>
         <button
           data-toggle="collapse"
           className="navbar-toggler"
@@ -24,7 +26,7 @@ const Header = () => {
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
-                Contact is
+                Contact us
               </a>
             </li>
           </ul>
@@ -32,9 +34,9 @@ const Header = () => {
             <a className="btn btn-primary login" href="#">
               Log In
             </a>
-            <a className="btn btn-success action-button" role="button" href="#">
+            <Link className="btn btn-success action-button" role="button" to="/signup">
               Sign Up
-            </a>
+            </Link>
           </span>
         </div>
       </div>

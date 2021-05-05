@@ -6,6 +6,7 @@
   .register-photo .image-holder {
     display: table-cell;
     width: auto;
+    background: url(/src/assets/seller.jfif);
     background-size: cover;
   }
   
