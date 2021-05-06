@@ -3,50 +3,58 @@ import { useState } from "react";
 import "./Register.css";
 
 //Seller Service
-import SellerService from '../../services/SellerService';
+import SellerService from "../../services/SellerService";
 
 const Register = () => {
+  const [btnDisabled, setBtnDisabled] = useState(false);
+  const [pwdMatchText, setPwdMatchText] = useState("");
+  const [pwdMsgColor, setPwdMsgColor] = useState("");
+  const [enteredNic, setEnteredNic] = useState("");
+  const [enteredName, setEnteredName] = useState("");
+  const [enteredEmail, setEnteredEmail] = useState("");
+  const [enteredMobileNo, setEnteredMobileNo] = useState("");
+  const [enteredPassword, setEnteredPassword] = useState("");
+  const [enteredConfPassword, setEnteredConfPassword] = useState("");
   let history = useHistory();
-  const[pwdMatchText, setPwdMatchText] = useState("");
-  const[pwdMsgColor, setPwdMsgColor] = useState("");
-  const[enteredNic, setEnteredNic] = useState("");
-  const[enteredName, setEnteredName] = useState("");
-  const[enteredEmail, setEnteredEmail] = useState("");
-  const[enteredMobileNo, setEnteredMobileNo] = useState("");
-  const[enteredPassword, setEnteredPassword] = useState("");
-  const[enteredConfPassword, setEnteredConfPassword] = useState("");
 
   const nicChangeHandler = (event) => {
     setEnteredNic(event.target.value);
-  }
+  };
 
   const nameChangeHandler = (event) => {
     setEnteredName(event.target.value);
-  }
+  };
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
-  }
+  };
 
   const mobileNoChangeHandler = (event) => {
     setEnteredMobileNo(event.target.value);
-  }
+  };
 
   const passwordChangeHandler = (event) => {
     setEnteredPassword(event.target.value);
-  }
+  };
+
+  const agreeTermsHandler = (event) => {
+    setBtnDisabled(event.target.checked);
+  };
 
   const confPasswordChangeHandler = (event) => {
     setEnteredConfPassword(event.target.value);
-    if(enteredPassword !== event.target.value){
-      setPwdMatchText("Password doesnot match!!!")
+    if (enteredPassword !== event.target.value) {
+      setPwdMatchText("Password doesnot match!!!");
       setPwdMsgColor("text-danger");
-      
-    }else{
-      setPwdMatchText("Password Matched!!!")
+    } else {
+      setPwdMatchText("Password Matched!!!");
       setPwdMsgColor("text-success");
     }
-  }
+
+    if (enteredPassword === "" || enteredConfPassword === "") {
+      setPwdMatchText("");
+    }
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -55,23 +63,25 @@ const Register = () => {
       name: enteredName,
       email: enteredEmail,
       mobileNo: enteredMobileNo,
-      password: enteredPassword
+      password: enteredPassword,
     };
 
-    //Send form data to the seller service
-    SellerService.getData(formData);
-
-    setEnteredNic("");
-    setEnteredName("");
-    setEnteredEmail("");
-    setEnteredMobileNo("");
-    setEnteredPassword("");
-    setEnteredConfPassword("");
-
-    history.push("/login");
-
-
-  }
+    if (enteredPassword !== enteredConfPassword) {
+      setPwdMatchText("Cannot Register. Password doesnot match!!!");
+      setPwdMsgColor("text-danger");
+      setEnteredNic("");
+      setEnteredName("");
+      setEnteredEmail("");
+      setEnteredMobileNo("");
+      setEnteredPassword("");
+      setEnteredConfPassword("");
+    } else {
+      //Send form data to the seller service
+      SellerService.addSellers(formData).then((res) => {
+        history.push("/login");
+      });
+    }
+  };
 
   const clearData = () => {
     setEnteredNic("");
@@ -80,8 +90,8 @@ const Register = () => {
     setEnteredMobileNo("");
     setEnteredPassword("");
     setEnteredConfPassword("");
-    
-  }
+    setPwdMatchText("");
+  };
 
   return (
     <section className="register-photo">
@@ -155,16 +165,28 @@ const Register = () => {
           <div className="form-group">
             <div className="form-check">
               <label className="form-check-label">
-                <input className="form-check-input" type="checkbox" />I agree to
-                the license terms.
+                <input
+                  onChange={agreeTermsHandler}
+                  className="form-check-input"
+                  type="checkbox"
+                />
+                I agree to the license terms.
               </label>
             </div>
           </div>
           <div className="form-group">
-            <button className="btn btn-primary btn-block" type="submit">
+            <button
+              disabled={!btnDisabled}
+              className="btn btn-primary btn-block"
+              type="submit"
+            >
               Sign Up
             </button>
-            <button onClick={clearData} className="btn btn-success btn-block" type="button">
+            <button
+              onClick={clearData}
+              className="btn btn-success btn-block"
+              type="button"
+            >
               Clear
             </button>
           </div>
