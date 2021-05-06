@@ -4,7 +4,7 @@ import "./Login.css";
 import SellerService from "../../services/SellerService";
 import { useHistory } from "react-router";
 
-const Login = () => {
+const Login = (props) => {
   const [allData, setAllData] = useState([]);
   const [enteredNic, setEnteredNic] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -20,10 +20,6 @@ const Login = () => {
 
   const loginFormSubmitHandler = (event) => {
     event.preventDefault();
-    const loginformData = {
-      nic: enteredNic,
-      password: enteredPassword,
-    };
     getAlldata();
   };
 
@@ -31,16 +27,27 @@ const Login = () => {
     SellerService.getAllSellerData().then((res) => {
       setAllData(res.data);
     });
-    checkLogin();
+    setTimeout(function () {
+      checkLogin();
+    }, 100);
   };
 
   const checkLogin = () => {
     const filteredData = allData.filter((seller) => {
       return seller.nic === enteredNic && seller.password === enteredPassword;
     });
-    console.log(filteredData);
+
+    for(const ele of filteredData){
+      var sellerName = ele.name;
+    }
 
     if (filteredData.length !== 0) {
+      const loginformData = {
+        nic: enteredNic,
+        name: sellerName,
+        password: enteredPassword,
+      };
+      props.passData(loginformData);
       history.push("/sellerPage");
     }
   };

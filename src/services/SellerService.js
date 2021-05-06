@@ -12,22 +12,6 @@ class SellerService {
     return axios.get(SELLER_API_BASE_URL);
   }
 
-  //Filter seller data by nic
-  getSellersByNIC(formData) {
-    const filteredData = this.data.filter(ele => {
-      return ele.nic === formData.nic
-    }) 
-    console.log(filteredData);
-  }
-
-  // checkLogin(data) {
-  //   if (this.data.password === data.password) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
   //Add Sellers
   addSellers(sellerData) {
     return axios.post(SELLER_API_BASE_URL, sellerData);
