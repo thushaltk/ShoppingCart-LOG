@@ -7,6 +7,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import Register from "./components/Register/Register";
 import Footer from "./components/Footer/Footer";
 import Login from "./components/Login/Login";
+import SellerPage from "./components/SellerPage/SellerPage";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
                 </Route>
                 <Route path="/login">
                   <Login />
+                </Route>
+                <Route path="/sellerPage">
+                  <SellerPage />
                 </Route>
               </Switch>
             </div>
