@@ -1,33 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./Items.css";
 
-import phone from '../../assets/phone.jpg';
+import ItemsService from "../../services/ItemsService";
+import Item from "./Item";
+import NotFound from "../404NotFound/NotFound";
 
 const Items = () => {
-  const [items, setItems] = useState({
-    id: "1223",
-    name: "Smart Phone",
-    description:
-      "This is a SmartphoneThis is a SmartphoneThis is a SmartphoneThis is a Smartphone",
-    imageUrl: phone,
-    amount: 10,
-    price: 20000.0,
-  });
+  const [items, setItems] = useState([]);
+  var slicedArr = Array.from(Array(items.length), () => new Array(3));
+
+  useEffect(() => {
+    ItemsService.getAllItemsData().then((res) => {
+      setItems(res.data);
+    });
+  }, []);
+
+  const sliceArrayHandler = () => {
+    var z = 0;
+    for (var i = 0; i < items.length; ) {
+      for (var j = 0; j < 4; j++) {
+        slicedArr[i][j] = items[z];
+        z++;
+      }
+      i++;
+    }
+    console.log(slicedArr);
+  };
+  sliceArrayHandler();
+  //console.log(items)
 
   return (
-    <div className="card">
-      <img className="card-img-top w-100 d-block" />
-      <div className="card-body">
-        <h4 className="card-title">{items.name}</h4>
-        <img src={items.imageUrl}/>
-        <p className="card-text">{items.description}</p>
-        <button className="btn btn-primary" type="button">
-          Add to Cart
-        </button>
-        <p className="card-text">{items.quantity}</p>
-        <p className="card-text">{items.price}</p>
-      </div>
+    <div className="card-group">
+      {slicedArr.map((item) => {
+        return <div className="card-group">
+          {item.map((subItem) => {
+            if(subItem !== undefined){
+              return <Item key={subItem.id} itemData={subItem} />;
+            }
+            
+          })}
+        </div>
+      })}
     </div>
   );
 };

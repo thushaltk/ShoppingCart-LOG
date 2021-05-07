@@ -1,9 +1,9 @@
 import {useState} from 'react';
+import { useHistory } from 'react-router';
 
 import "./AddItem.css";
 
 import ItemsService from '../../../services/ItemsService';
-import { useHistory } from 'react-router';
 
 const AddItem = (props) => {
     const [enteredItemName, setEnteredItemName] = useState("");
@@ -32,12 +32,12 @@ const AddItem = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     const formData = {
-        item_name: enteredItemName,
+        itemName: enteredItemName,
         description: enteredDescription,
-        img_url: enteredImgUrl,
+        imageUrl: enteredImgUrl,
         price: enteredPrice,
-        s_name: props.sellerData.name,
-        s_nic: props.sellerData.nic
+        sellerName: localStorage.getItem("sName"),
+        sellerNic: localStorage.getItem("sNic")
     }
     ItemsService.addItems(formData);
     history.push("/sellerPage");
@@ -52,7 +52,7 @@ const AddItem = (props) => {
             <input
               className="form-control"
               type="text"
-              name="item_name"
+              name="itemName"
               onChange={itemNameChangeHandler}
               placeholder="Item Name"
             />
@@ -71,7 +71,7 @@ const AddItem = (props) => {
             <input
               className="form-control"
               type="text"
-              name="img_url"
+              name="imageUrl"
               onChange={imgUrlChangeHandler}
               placeholder="Image URL"
             />

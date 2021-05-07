@@ -13,6 +13,7 @@ import AddItem from "./components/Items/AddItem/AddItem";
 
 function App() {
   const [loginData, setLoginData] = useState("");
+  
 
   const passSellerData = (data) => {
     setLoginData(data);

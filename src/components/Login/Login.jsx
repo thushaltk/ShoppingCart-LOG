@@ -10,6 +10,8 @@ const Login = (props) => {
   const [enteredPassword, setEnteredPassword] = useState("");
   let history = useHistory();
 
+  
+
   const loginNicChangeHandler = (event) => {
     setEnteredNic(event.target.value);
   };
@@ -39,6 +41,9 @@ const Login = (props) => {
 
     for(const ele of filteredData){
       var sellerName = ele.name;
+      var sellerNic = ele.nic;
+      localStorage.setItem('sName', sellerName);
+      localStorage.setItem('sNic', sellerNic)
     }
 
     if (filteredData.length !== 0) {
