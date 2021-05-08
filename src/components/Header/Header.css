@@ -108,5 +108,11 @@
   .navigation-clean-button .navbar-text .action-button:hover {
     background: #66d7d7;
   }
+
+
+  .cartNo{
+    margin-left: 10px;
+    padding-right: 30px;
+  }
   
   

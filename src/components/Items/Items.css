@@ -6,3 +6,20 @@
     width: 250px;
     height: 200px;
 }
+
+.para{
+    font-weight: 600;
+    font-size: larger;
+    padding-top: 20px;
+    color: red;
+}
+
+.des{
+    padding-top: 20px;
+}
+
+.smallPara{
+    font-size: small;
+    text-align: center;
+    padding-top: 20px;
+}
