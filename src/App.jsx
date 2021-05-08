@@ -12,6 +12,7 @@ import { useState } from "react";
 import AddItem from "./components/Items/AddItem/AddItem";
 import UpdateItem from "./components/Items/AddItem/UpdateItem";
 import ContactUs from "./components/ContactUs/ContactUs";
+import Cart from "./components/Cart/Cart";
 
 
 function App() {
@@ -64,6 +65,9 @@ function App() {
                 </Route>
                 <Route path="/updateItem/:id">
                   <UpdateItem/>
+                </Route>
+                <Route path="/cart">
+                  <Cart cart={cartData}/>
                 </Route>
               </Switch>
             </div>

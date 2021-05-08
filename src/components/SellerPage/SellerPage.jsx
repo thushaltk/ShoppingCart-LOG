@@ -47,6 +47,7 @@ const SellerPage = (props) => {
 
   return (
     <div className="container">
+      <br />
       <h1>Welcome {localStorage.getItem("sName")} !</h1>
       <div className="btn-group" role="group">
         <Link

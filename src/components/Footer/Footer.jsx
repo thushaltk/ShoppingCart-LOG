@@ -34,7 +34,7 @@ const Footer = () => {
           <a href="#">Privacy Policy</a>
         </li>
       </ul>
-      <p class="copyright">Company Name © 2017</p>
+      <p class="copyright">LanD oF GoDs © 2020 </p>
     </footer>
   );
 };

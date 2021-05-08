@@ -44,7 +44,7 @@ const Header = (props) => {
             </li>
           </ul>
           <span className="navbar-text actions">
-            <Link className="login" to="/login">
+            <Link className="login" to="/cart">
               <i className="icon ion-android-cart"></i>
               <span className="cartNo">{cItems.length}</span>
             </Link>

@@ -7,19 +7,17 @@ const Item = (props) => {
   const cartItems = {
     itemName: "",
     imgUrl: "",
-    sellerName: ""
+    sellerName: "",
+    price: ""
   }
-
-  //const listItems 
   
   const addToCart = () => {
     cartItems.itemName = props.itemData.itemName;
     cartItems.imgUrl = props.itemData.imageUrl;
     cartItems.sellerName = props.itemData.sellerName;
+    cartItems.price = props.itemData.price;
     arrData.push(cartItems);
     props.sendCartData(arrData);
-    //console.log(arrData);
-    //localStorage.setItem("cartItemData", arrData);
     
   };
 
