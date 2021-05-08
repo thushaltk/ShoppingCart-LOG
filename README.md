@@ -12,7 +12,7 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
-# Install thses before running
+# Install these before running
 
 1. npm instal --save axios
 2. npm install --save react-router
