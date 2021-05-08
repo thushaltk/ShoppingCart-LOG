@@ -9,7 +9,7 @@ const LandingPage = (props) => {
 
   return (
     <div>
-      <div className="jumbotron">
+      <div className="jumbotron jumbotron_mod">
         <br/><br/><br/><br/>
         <p></p>
       </div>

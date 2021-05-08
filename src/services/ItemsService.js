@@ -21,8 +21,14 @@ class ItemService {
     return axios.get(ITEMS_API_BASE_URL + '/' + itemID);
   }
   
+  //update items
   updateItem(item, itemID){
     return axios.put(ITEMS_API_BASE_URL + '/' + itemID, item);
+  }
+
+  //delete items
+  deleteItem(itemID){
+    return axios.delete(ITEMS_API_BASE_URL + '/' + itemID);
   }
 
 }

@@ -7,12 +7,9 @@ import "./SellerPage.css";
 import ItemsService from "../../services/ItemsService";
 import NotFound from "../404NotFound/NotFound";
 
-
 var bol = true;
 
-
 const SellerPage = (props) => {
-  
   const [allItems, setAllItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   let history = useHistory();
@@ -42,6 +39,12 @@ const SellerPage = (props) => {
     history.push(`/updateItem/${id}`);
   };
 
+  const deleteItem = (id) => {
+    ItemsService.deleteItem(id).then((res) => {
+      setSelectedItems(selectedItems.filter((item) => item.itemID !== id));
+    });
+  };
+
   return (
     <div className="container">
       <h1>Welcome {localStorage.getItem("sName")} !</h1>
@@ -61,23 +64,23 @@ const SellerPage = (props) => {
           LOAD DATA
         </button>
       </div>
-      <div className="table-responsive">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Item ID</th>
-              <th>Item Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Seller Name</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bol === true ? (
-              <NotFound />
-            ) : (
-              selectedItems.map((item) => (
+      {bol === true ? (
+        <NotFound />
+      ) : (
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Item ID</th>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Seller Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {selectedItems.map((item) => (
                 <tr key={item.itemID}>
                   <td>{item.itemID}</td>
                   <td>{item.itemName}</td>
@@ -93,14 +96,19 @@ const SellerPage = (props) => {
                     </button>
                   </td>
                   <td>
-                    <button className="btn btn-danger">Delete</button>
+                    <button
+                      onClick={() => deleteItem(item.itemID)}
+                      className="btn btn-danger"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

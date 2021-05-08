@@ -25,13 +25,11 @@ const Items = (props) => {
       }
       i++;
     }
-    console.log(slicedArr);
   };
   sliceArrayHandler();
-  //console.log(items)
 
   const cartDataHandler = (data) => {
-    //console.log(data);
+    console.log(data);
     props.sendCartDetails(data);
 
   }

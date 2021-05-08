@@ -1,11 +1,11 @@
-const NotFound = () => {
-    return(
-        <div>
-            <h1>Click Load Data button</h1>
-        </div>
-    );
+import "./NotFound.css";
 
-    
+const NotFound = () => {
+  return (
+    <div className="jumbotron nf">
+
+    </div>
+  );
 };
 
 export default NotFound;
