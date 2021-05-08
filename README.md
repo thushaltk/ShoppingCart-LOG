@@ -12,7 +12,8 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
-###Install thses before running
+#Install thses before running
+
 1. npm instal --save axios
 2. npm install --save react-router
 3. Eclipse IDE with Spring Tools 4 (aka Spring Tool Suite 4) from Eclipse Marketplace
