@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./Header.css";
 
 var cItems = [];
 
 const Header = (props) => {
-
-    
   props.cart.map((item) => {
-    //console.log(item);
     cItems = item;
-    //console.log(cItems);
-  })
+  });
+  let history = useHistory();
+
+  const gotoLogin = () => {
+    history.push("/login");
+    window.location.reload();
+  }
 
   return (
     <nav className="navbar navbar-light navbar-expand-md navigation-clean-button ">
@@ -44,13 +46,11 @@ const Header = (props) => {
           <span className="navbar-text actions">
             <Link className="login" to="/login">
               <i className="icon ion-android-cart"></i>
-              <span className="cartNo">
-                {cItems.length}
-              </span>
+              <span className="cartNo">{cItems.length}</span>
             </Link>
-            <Link className="btn btn-primary login" to="/login">
-              Log In
-            </Link>
+            <button onClick={gotoLogin} className="btn btn-primary login">
+              {(localStorage.getItem("sName")) !== null ? "Logout" : "Login"}
+            </button>
             <Link
               className="btn btn-success action-button"
               role="button"

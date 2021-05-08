@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Login.css";
 
 import SellerService from "../../services/SellerService";
 import { useHistory } from "react-router";
+import Notification from "../Notification/Notification";
+
 
 const Login = (props) => {
   const [allData, setAllData] = useState([]);
   const [enteredNic, setEnteredNic] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
-  let history = useHistory();
+  const [notifyData, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: ""
+  });
 
-  
+  let history = useHistory();
 
   const loginNicChangeHandler = (event) => {
     setEnteredNic(event.target.value);
@@ -25,13 +31,22 @@ const Login = (props) => {
     getAlldata();
   };
 
-  const getAlldata = () => {
+  useEffect(() => {
+    localStorage.removeItem("sName");
+    window.onload = function() {
+      if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+      }
+    }
+    
     SellerService.getAllSellerData().then((res) => {
       setAllData(res.data);
     });
-    setTimeout(function () {
-      checkLogin();
-    }, 100);
+  }, []);
+
+  const getAlldata = () => {
+    checkLogin();
   };
 
   const checkLogin = () => {
@@ -39,23 +54,43 @@ const Login = (props) => {
       return seller.nic === enteredNic && seller.password === enteredPassword;
     });
 
-    for(const ele of filteredData){
+    for (const ele of filteredData) {
       var sellerName = ele.name;
       var sellerNic = ele.nic;
-      localStorage.setItem('sName', sellerName);
-      localStorage.setItem('sNic', sellerNic)
+      localStorage.setItem("sName", sellerName);
+      localStorage.setItem("sNic", sellerNic);
     }
 
     if (filteredData.length !== 0) {
-      const loginformData = {
-        nic: enteredNic,
-        name: sellerName,
-        password: enteredPassword,
-      };
-      props.passData(loginformData);
-      history.push("/sellerPage");
+      setNotify({
+        isOpen: true,
+        message: "LOGGIN SUCCESSFUL",
+        type: "success",
+      });
+
+      setTimeout(() => {
+        const loginformData = {
+          nic: enteredNic,
+          name: sellerName,
+          password: enteredPassword,
+        };
+
+        props.passData(loginformData);
+        history.push("/sellerPage");
+      }, 1000);
+    }else{
+
+      setNotify({
+        isOpen: true,
+        message: "LOGGIN FAILED!!",
+        type: "error",
+      });
+
+      console.log(notifyData);
     }
   };
+
+  
 
   return (
     <section className="login-clean">
@@ -91,6 +126,7 @@ const Login = (props) => {
           Forgot your password?
         </a>
       </form>
+      <Notification notify={notifyData} />
     </section>
   );
 };

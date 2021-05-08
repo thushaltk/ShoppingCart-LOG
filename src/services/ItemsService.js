@@ -16,6 +16,15 @@ class ItemService {
   getAllItemsData() {
     return axios.get(ITEMS_API_BASE_URL);
   }
+
+  getItemById(itemID){
+    return axios.get(ITEMS_API_BASE_URL + '/' + itemID);
+  }
+  
+  updateItem(item, itemID){
+    return axios.put(ITEMS_API_BASE_URL + '/' + itemID, item);
+  }
+
 }
 
 export default new ItemService();

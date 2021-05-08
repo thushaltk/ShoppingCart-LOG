@@ -1,36 +1,50 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 import Items from "../Items/Items";
 import "./SellerPage.css";
 
 import ItemsService from "../../services/ItemsService";
+import NotFound from "../404NotFound/NotFound";
+
+
+var bol = true;
+
 
 const SellerPage = (props) => {
+  
   const [allItems, setAllItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
+  let history = useHistory();
 
   const setDataHandler = (event) => {
-    setTimeout(function () {
-      setSelectedItems(event);
-    }, 1000);
+    setSelectedItems(event);
   };
 
-  const loadData = () => {
+  useEffect(() => {
     ItemsService.getAllItemsData().then((res) => {
       setAllItems(res.data);
     });
+  }, []);
 
+  const loadData = () => {
+    bol = false;
     const filteredItemsData = allItems.filter((item) => {
-      return item.sellerName === localStorage.getItem('sName');
+      return item.sellerName === localStorage.getItem("sName");
     });
 
     setDataHandler(filteredItemsData);
   };
 
+  const editItem = (id) => {
+    // let id = localStorage.getItem("itemID");
+    //localStorage.removeItem("itemID");
+    history.push(`/updateItem/${id}`);
+  };
+
   return (
     <div className="container">
-      <h1>Welcome {localStorage.getItem('sName')} !</h1>
+      <h1>Welcome {localStorage.getItem("sName")} !</h1>
       <div className="btn-group" role="group">
         <Link
           to="/addItems"
@@ -47,8 +61,8 @@ const SellerPage = (props) => {
           LOAD DATA
         </button>
       </div>
-      <div class="table-responsive">
-        <table class="table">
+      <div className="table-responsive">
+        <table className="table">
           <thead>
             <tr>
               <th>Item ID</th>
@@ -60,21 +74,30 @@ const SellerPage = (props) => {
             </tr>
           </thead>
           <tbody>
-            {selectedItems.map((item) => (
-              <tr key={item.itemID}>
-                <td>{item.itemID}</td>
-                <td>{item.itemName}</td>
-                <td>{item.description}</td>
-                <td>{item.price}</td>
-                <td>{item.sellerName}</td>
-                <td>
-                  <button className="btn btn-warning">Update</button>
-                </td>
-                <td>
-                  <button className="btn btn-danger">Delete</button>
-                </td>
-              </tr>
-            ))}
+            {bol === true ? (
+              <NotFound />
+            ) : (
+              selectedItems.map((item) => (
+                <tr key={item.itemID}>
+                  <td>{item.itemID}</td>
+                  <td>{item.itemName}</td>
+                  <td>{item.description}</td>
+                  <td>{item.price}</td>
+                  <td>{item.sellerName}</td>
+                  <td>
+                    <button
+                      onClick={() => editItem(item.itemID)}
+                      className="btn btn-warning"
+                    >
+                      Update
+                    </button>
+                  </td>
+                  <td>
+                    <button className="btn btn-danger">Delete</button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

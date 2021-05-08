@@ -1,7 +1,7 @@
 const NotFound = () => {
     return(
         <div>
-            <h1>No Products!!</h1>
+            <h1>Click Load Data button</h1>
         </div>
     );
 

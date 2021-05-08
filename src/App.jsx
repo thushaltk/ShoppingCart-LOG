@@ -10,17 +10,23 @@ import Login from "./components/Login/Login";
 import SellerPage from "./components/SellerPage/SellerPage";
 import { useState } from "react";
 import AddItem from "./components/Items/AddItem/AddItem";
+import UpdateItem from "./components/Items/AddItem/UpdateItem";
 import ContactUs from "./components/ContactUs/ContactUs";
 
 
 function App() {
   const [loginData, setLoginData] = useState("");
   const [cartData, setCartData] = useState([]);
+  const [logOut, setLogout] = useState(false);
 
   const passSellerData = (data) => {
     setLoginData(data);
+    logout();
   }
 
+  const logout = () => {
+    setLogout(true);
+  }
 
   const cartDetailsHandler = (data) => {
     setCartData(() => {
@@ -35,7 +41,7 @@ function App() {
       <header>
         <div>
           <Router>
-            <Header cart={cartData}/>
+            <Header cart={cartData} logStatus={logOut}/>
             <div className="container">
               <Switch>
                 <Route exact path="/">
@@ -55,6 +61,9 @@ function App() {
                 </Route>
                 <Route path="/contactUs">
                   <ContactUs/>
+                </Route>
+                <Route path="/updateItem/:id">
+                  <UpdateItem/>
                 </Route>
               </Switch>
             </div>
