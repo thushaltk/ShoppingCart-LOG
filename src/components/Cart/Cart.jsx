@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 const Cart = (props) => {
   const [cartItems, setCartItems] = useState(props.cart);
-  const [subTotal, setSubTotal] = useState(0.0);
+  let history = useHistory();
+  var tot = 0;
 
   useEffect(() => {
     props.cart.map((item) => {
       setCartItems(item);
     });
-  });
+  }, []);
 
-  const calculateSubTotal = (price) => {
-    // var tot = subTotal;
-    // setSubTotal(parseFloat(tot) + parseFloat(price));
-    console.log(subTotal);
+  const proceed = () => {
+    props.subTotal(tot);
+    history.push("/checkout");
+  };
+
+  const removeItem = (itemName) => {
+    //console.log(itemName);
+    setCartItems(cartItems.filter((item) => item.itemName !== itemName));
   };
 
   return (
@@ -34,15 +40,13 @@ const Cart = (props) => {
                           <div className="py-2 text-uppercase">Price</div>
                         </th>
                         <th scope="col" className="border-0 bg-light">
-                          <div className="py-2 text-uppercase">Quantity</div>
-                        </th>
-                        <th scope="col" className="border-0 bg-light">
                           <div className="py-2 text-uppercase">Remove</div>
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       {cartItems.map((item) => {
+                        tot = tot + item.price;
                         return (
                           <tr>
                             <th scope="row" className="border-0">
@@ -53,6 +57,7 @@ const Cart = (props) => {
                                   width={70}
                                   className="img-fluid rounded shadow-sm"
                                 />
+
                                 <div className="ml-3 d-inline-block align-middle">
                                   <h5 className="mb-0">
                                     {" "}
@@ -71,20 +76,15 @@ const Cart = (props) => {
                             </th>
                             <td className="border-0 align-middle">
                               <strong> Rs. {item.price}.00</strong>
-                              
-                            </td>
-                            <td className="border-0 align-middle">
-                              <strong>
-                                <input
-                                  type="number"
-                                  min={1}
-                                  style={{ width: "50px" }}
-                                />
-                              </strong>
                             </td>
                             <td className="border-0 align-middle">
                               <a href="#" className="text-dark">
-                                <i className="fa fa-trash" />
+                                <button
+                                  onClick={() => removeItem(item.itemName)}
+                                  className="btn btn-danger"
+                                >
+                                  REMOVE
+                                </button>
                               </a>
                             </td>
                           </tr>
@@ -98,50 +98,6 @@ const Cart = (props) => {
             <div className="row py-5 p-4 bg-white rounded shadow-sm">
               <div className="col-lg-6">
                 <div className="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
-                  Coupon code
-                </div>
-                <div className="p-4">
-                  <p className="font-italic mb-4">
-                    If you have a coupon code, please enter it in the box below
-                  </p>
-                  <div className="input-group mb-4 border rounded-pill p-2">
-                    <input
-                      type="text"
-                      placeholder="Apply coupon"
-                      aria-describedby="button-addon3"
-                      className="form-control border-0"
-                    />
-                    <div className="input-group-append border-0">
-                      <button
-                        id="button-addon3"
-                        type="button"
-                        className="btn btn-dark px-4 rounded-pill"
-                      >
-                        <i className="fa fa-gift mr-2" />
-                        Apply coupon
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
-                  Instructions for seller
-                </div>
-                <div className="p-4">
-                  <p className="font-italic mb-4">
-                    If you have some information for the seller you can leave
-                    them in the box below
-                  </p>
-                  <textarea
-                    name
-                    cols={30}
-                    rows={2}
-                    className="form-control"
-                    defaultValue={""}
-                  />
-                </div>
-              </div>
-              <div className="col-lg-6">
-                <div className="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
                   Order summary{" "}
                 </div>
                 <div className="p-4">
@@ -152,29 +108,31 @@ const Cart = (props) => {
                   <ul className="list-unstyled mb-4">
                     <li className="d-flex justify-content-between py-3 border-bottom">
                       <strong className="text-muted">Order Subtotal </strong>
-                      <strong>$390.00</strong>
+                      <strong>Rs. {tot}.00</strong>
                     </li>
                     <li className="d-flex justify-content-between py-3 border-bottom">
                       <strong className="text-muted">
                         Shipping and handling
                       </strong>
-                      <strong>$10.00</strong>
+                      <strong>Rs. 150.00</strong>
                     </li>
                     <li className="d-flex justify-content-between py-3 border-bottom">
                       <strong className="text-muted">Tax</strong>
-                      <strong>$0.00</strong>
+                      <strong>Rs. 0.00</strong>
                     </li>
                     <li className="d-flex justify-content-between py-3 border-bottom">
                       <strong className="text-muted">Total</strong>
-                      <h5 className="font-weight-bold">$400.00</h5>
+                      <h5 className="font-weight-bold">
+                        Rs. {(tot = tot + 10)}.00
+                      </h5>
                     </li>
                   </ul>
-                  <a
-                    href="#"
-                    className="btn btn-dark rounded-pill py-2 btn-block"
+                  <button
+                    onClick={proceed}
+                    className="btn btn-primary rounded-pill py-2 btn-block"
                   >
                     Procceed to checkout
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

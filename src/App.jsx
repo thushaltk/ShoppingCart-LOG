@@ -13,12 +13,14 @@ import AddItem from "./components/Items/AddItem/AddItem";
 import UpdateItem from "./components/Items/AddItem/UpdateItem";
 import ContactUs from "./components/ContactUs/ContactUs";
 import Cart from "./components/Cart/Cart";
+import Checkout from "./components/Checkout/Checkout";
 
 
 function App() {
   const [loginData, setLoginData] = useState("");
   const [cartData, setCartData] = useState([]);
   const [logOut, setLogout] = useState(false);
+  const [subTot, setTot] = useState();
 
   const passSellerData = (data) => {
     setLoginData(data);
@@ -34,6 +36,10 @@ function App() {
       return [data];
     });
     //console.log(cartData);
+  }
+
+  const proceedToCheckout = (tot) => {
+    setTot(tot);
   }
 
 
@@ -67,7 +73,10 @@ function App() {
                   <UpdateItem/>
                 </Route>
                 <Route path="/cart">
-                  <Cart cart={cartData}/>
+                  <Cart cart={cartData} subTotal={proceedToCheckout}/>
+                </Route>
+                <Route path="/checkout">
+                  <Checkout subTot={subTot}/>
                 </Route>
               </Switch>
             </div>
