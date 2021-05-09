@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ITEMS_API_BASE_URL = "http://localhost:8080/sendemail";
+const EMAIL_API_BASE_URL = "http://localhost:8080/sendemail";
 
 class EmailService {
   constructor(data) {
@@ -8,7 +8,7 @@ class EmailService {
   }
 
   sendmail(email, message){
-    return axios.get(ITEMS_API_BASE_URL + '?' + 'email=' + email + '&' + 'message=' + message);
+    return axios.get(EMAIL_API_BASE_URL + '?' + 'email=' + email + '&' + 'message=' + message);
   }
 
 }

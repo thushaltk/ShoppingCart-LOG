@@ -1,9 +1,28 @@
 import { useState } from "react";
+import SMSService from "../../services/SMSService";
 import "./Checkout.css";
 import CreditCard from "./CreditCard";
 
 const Checkout = (props) => {
+  const [numberInput, setNumberInput] = useState({
+    to: "",
+    message: ""
+  });
   //console.log(props.subTot);
+
+  const showNumberChangeHandler = (event) => {
+    setNumberInput({
+      to: event.target.value,
+      message: "Rs. " + props.subTot + ".00 has been deducted from your phone balance. Thank You!!!"
+    });
+    console.log(numberInput);
+  };
+
+  const sendNumber = () => {
+    SMSService.sendsms(numberInput);
+    console.log(numberInput);
+  }
+
   return (
     <div className="container" style={{ height: "100vh" }}>
       <div
@@ -36,7 +55,24 @@ const Checkout = (props) => {
               </button>
             </li>
             <li className="nav-item">
-              <button className="btn btn-primary" style={{ fontSize: "20px" }}>
+              <p>
+                <strong>OR</strong>
+              </p>
+            </li>
+
+            <li className="nav-item">
+              <input
+                className="form-control"
+                type="text"
+                name="phone"
+                onChange={showNumberChangeHandler}
+                placeholder="Enter Mobile No."
+              />
+              <button
+                className="btn btn-primary"
+                onClick={sendNumber}
+                style={{ marginTop: "30px", fontSize: "20px" }}
+              >
                 <i className="fa fa-credit-card" />
                 Use Mobile Number
               </button>

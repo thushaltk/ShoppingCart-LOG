@@ -123,7 +123,7 @@ const Cart = (props) => {
                     <li className="d-flex justify-content-between py-3 border-bottom">
                       <strong className="text-muted">Total</strong>
                       <h5 className="font-weight-bold">
-                        Rs. {(tot = tot + 10)}.00
+                        Rs. {(tot = tot + 150)}.00
                       </h5>
                     </li>
                   </ul>
