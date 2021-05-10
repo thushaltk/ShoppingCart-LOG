@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
+import "./Cart.css";
+
 const Cart = (props) => {
   const [cartItems, setCartItems] = useState(props.cart);
   let history = useHistory();
@@ -69,7 +71,7 @@ const Cart = (props) => {
                                     </a>
                                   </h5>
                                   <span className="text-muted font-weight-normal font-italic d-block">
-                                    Category: Phones
+                                    Category: Product
                                   </span>
                                 </div>
                               </div>
@@ -135,6 +137,10 @@ const Cart = (props) => {
                   </button>
                 </div>
               </div>
+              <div className="col-lg-6">
+                <img className="cart"/>
+              </div>
+
             </div>
           </div>
         </div>

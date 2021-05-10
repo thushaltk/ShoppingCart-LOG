@@ -99,7 +99,7 @@ const Register = () => {
         <div className="image-holder"></div>
         <form onSubmit={submitHandler} method="post">
           <h2 className="text-center">
-            <strong>Create</strong> an account.
+            <strong>Create</strong> a Seller account.
           </h2>
           <div className="form-group">
             <input
@@ -190,8 +190,11 @@ const Register = () => {
               Clear
             </button>
           </div>
-          <Link className="already" to="/login">
+          <Link style={{paddingBottom: "30px"}} className="already" to="/login">
             You already have an account? Login here.
+          </Link>
+          <Link className=" btn-block btn btn-info" to="/buyerSignup">
+            Register as a Buyer
           </Link>
         </form>
       </div>

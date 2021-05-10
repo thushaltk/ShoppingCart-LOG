@@ -65,5 +65,22 @@
     opacity: 1;
     text-decoration: none;
   }
+
+  .img{
+    background-image: url(../../assets/sellerLogin.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 150px;
+    height: 150px;
+  }
+
+  .bimg{
+    background-image: url(../../assets/buyerLogin.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 150px;
+    height: 150px;
+
+  }
   
   

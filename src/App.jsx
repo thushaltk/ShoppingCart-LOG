@@ -14,6 +14,8 @@ import UpdateItem from "./components/Items/AddItem/UpdateItem";
 import ContactUs from "./components/ContactUs/ContactUs";
 import Cart from "./components/Cart/Cart";
 import Checkout from "./components/Checkout/Checkout";
+import BuyerRegister from "./components/Register/BuyerRegister";
+import AboutUs from "./components/AboutUs/AboutUs";
 
 
 function App() {
@@ -57,6 +59,9 @@ function App() {
                 <Route path="/signup">
                   <Register />
                 </Route>
+                <Route path="/buyerSignup">
+                  <BuyerRegister />
+                </Route>
                 <Route path="/login">
                   <Login passData={passSellerData}/>
                 </Route>
@@ -77,6 +82,9 @@ function App() {
                 </Route>
                 <Route path="/checkout">
                   <Checkout subTot={subTot}/>
+                </Route>
+                <Route path="/aboutus">
+                  <AboutUs/>
                 </Route>
               </Switch>
             </div>
