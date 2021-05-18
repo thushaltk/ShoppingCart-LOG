@@ -1,9 +1,12 @@
-import Items from "../Items/Items";
+import Items from "../Items/Items"; //Imports Items component
 import "./LandingPage.css";
 
 const LandingPage = (props) => {
+  /**
+   * Pass cart details to the parent (App) component
+   * @param {object} data - cart details 
+   */
   const cartDetailsHandler = (data) => {
-    //console.log(data);
     props.sendCartDetails(data);
   }
 

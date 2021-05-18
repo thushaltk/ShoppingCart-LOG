@@ -4,11 +4,13 @@ import "./Login.css";
 import SellerService from "../../services/SellerService";
 import { useHistory } from "react-router";
 import Notification from "../Notification/Notification";
-import LoginService from "../../services/LoginService";
 import { Link } from "react-router-dom";
 import BuyerService from "../../services/BuyerService";
 
 const Login = (props) => {
+  let history = useHistory();
+  const buyerEmail = useRef();
+  const buyerPassword = useRef();
   const [allData, setAllData] = useState([]);
   const [buyerData, setBuyerData] = useState([]);
   const [enteredNic, setEnteredNic] = useState("");
@@ -18,11 +20,6 @@ const Login = (props) => {
     message: "",
     type: "",
   });
-
-  const buyerEmail = useRef();
-  const buyerPassword = useRef();
-
-  let history = useHistory();
 
   const loginNicChangeHandler = (event) => {
     setEnteredNic(event.target.value);
@@ -94,8 +91,6 @@ const Login = (props) => {
         message: "LOGGIN FAILED!!",
         type: "error",
       });
-
-      //console.log(notifyData);
     }
   };
 
@@ -123,8 +118,6 @@ const Login = (props) => {
           name: buyerName,
           password: buyerPassword,
         };
-
-        //props.passBuyerData(loginformData);
         history.push("/");
       }, 1000);
     } else {

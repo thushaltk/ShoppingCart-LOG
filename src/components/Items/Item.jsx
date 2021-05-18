@@ -1,6 +1,6 @@
-import { useState } from "react";
 import "./Items.css";
 
+//Holds cart details
 var arrData = [];
 
 const Item = (props) => {
@@ -10,7 +10,12 @@ const Item = (props) => {
     sellerName: "",
     price: ""
   }
-  
+
+  /**
+   * This function add items to the cartItems object and push it to array.
+   * Then the array is passed to the sendCartDetails method in the landingPage component
+   * as an argument.
+   */
   const addToCart = () => {
     cartItems.itemName = props.itemData.itemName;
     cartItems.imgUrl = props.itemData.imageUrl;
